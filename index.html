@@ -4,18 +4,74 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Air Batu Malaysia @ Tengah</title>
-    <link rel="stylesheet" href="style.css">
     <link rel="icon" type="image/jpg" href="blue.jpg">
+    <style>
+        /* --- BEAUTIFUL DESIGN STYLES --- */
+        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; background-color: #f8f9fa; margin: 0; padding-bottom: 50px; }
+        
+        .header { background: white; padding: 20px; text-align: center; box-shadow: 0 2px 10px rgba(0,0,0,0.05); position: sticky; top:0; z-index: 100; }
+        .header h1 { margin: 0; font-size: 22px; color: #333; }
+        .header p { margin: 5px 0 0; color: #666; font-size: 14px; }
+
+        .container { max-width: 600px; margin: 0 auto; padding: 10px; }
+
+        /* MENU CARD STYLE */
+        .card { 
+            background: white; 
+            border-radius: 15px; 
+            padding: 15px; 
+            margin-bottom: 15px; 
+            display: flex; /* Side by side layout */
+            align-items: center; 
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05); 
+        }
+
+        .card img { 
+            width: 90px; 
+            height: 90px; 
+            border-radius: 10px; 
+            object-fit: cover; 
+            margin-right: 15px; /* Space between image and text */
+            border: 1px solid #eee;
+        }
+
+        .card-info { flex: 1; }
+        .card-info h2 { margin: 0 0 5px; font-size: 18px; color: #333; }
+        .price { font-weight: bold; color: #28a745; margin: 0; font-size: 16px; }
+        
+        /* STOCK WARNING TEXT */
+        .stock-warning { color: #dc3545; font-size: 13px; font-weight: bold; min-height: 20px; margin-top: 2px; }
+
+        .actions { display: flex; align-items: center; justify-content: space-between; margin-top: 10px; }
+        
+        .qty-box { background: #f1f3f5; border-radius: 8px; padding: 5px 10px; display: flex; align-items: center; }
+        .qty-box input { width: 30px; border: none; background: transparent; text-align: center; font-weight: bold; font-size: 16px; }
+
+        /* BUTTONS */
+        .add-btn { 
+            background: #007bff; color: white; border: none; 
+            padding: 8px 20px; border-radius: 20px; 
+            font-weight: bold; font-size: 14px; cursor: pointer; transition: 0.2s; 
+        }
+        .add-btn:active { transform: scale(0.95); }
+        .add-btn:disabled { background: #ccc; cursor: not-allowed; }
+
+        /* BASKET & CHECKOUT */
+        .cart-section { background: white; padding: 20px; border-radius: 15px; margin-top: 20px; border: 2px solid #007bff; box-shadow: 0 4px 15px rgba(0,123,255,0.2); }
+        
+        /* CLOSED BANNER */
+        #closed-banner { background: #dc3545; color: white; text-align: center; padding: 15px; font-weight: bold; position: sticky; top: 0; z-index: 999; box-shadow: 0 2px 10px rgba(0,0,0,0.2); }
+    </style>
 </head>
 <body>
+
+    <div id="closed-banner" style="display:none;">
+        ⛔ SORRY, WE ARE CLOSED!
+    </div>
 
     <div class="header">
         <h1>Air Batu Malaysia @ Tengah 🍧</h1>
         <p>Pickup Only • Cash on Pickup</p>
-    </div>
-    
-    <div id="closed-banner" style="display:none; background: #dc3545; color: white; text-align: center; padding: 15px; font-weight: bold; position: sticky; top: 0; z-index: 999;">
-        ⛔ SORRY, WE ARE CLOSED!
     </div>
 
     <div class="container">
@@ -25,10 +81,11 @@
             <div class="card-info">
                 <h2>Vanilla Blue</h2>
                 <p class="price">$1.50</p>
-                <p id="stock-vanilla" style="color:red; font-size:12px; font-weight:bold;"></p>
+                <p id="stock-vanilla" class="stock-warning"></p>
+                
                 <div class="actions">
-                    <div class="qty-selector">
-                        <span>Qty:</span>
+                    <div class="qty-box">
+                        <span style="color:#888; font-size:12px; margin-right:5px;">Qty</span>
                         <input type="number" id="qty1" value="1" min="1">
                     </div>
                     <button class="add-btn" id="btn-vanilla" onclick="addToCart('Vanilla Blue', 1.50, 'qty1', 'vanilla')">ADD +</button>
@@ -41,10 +98,11 @@
             <div class="card-info">
                 <h2>Bubblegum</h2>
                 <p class="price">$1.50</p>
-                <p id="stock-bubblegum" style="color:red; font-size:12px; font-weight:bold;"></p>
+                <p id="stock-bubblegum" class="stock-warning"></p>
+                
                 <div class="actions">
-                    <div class="qty-selector">
-                        <span>Qty:</span>
+                    <div class="qty-box">
+                        <span style="color:#888; font-size:12px; margin-right:5px;">Qty</span>
                         <input type="number" id="qty2" value="1" min="1">
                     </div>
                     <button class="add-btn" id="btn-bubblegum" onclick="addToCart('Bubblegum', 1.50, 'qty2', 'bubblegum')">ADD +</button>
@@ -57,10 +115,11 @@
             <div class="card-info">
                 <h2>Chocolate</h2>
                 <p class="price">$1.50</p>
-                <p id="stock-chocolate" style="color:red; font-size:12px; font-weight:bold;"></p>
+                <p id="stock-chocolate" class="stock-warning"></p>
+                
                 <div class="actions">
-                    <div class="qty-selector">
-                        <span>Qty:</span>
+                    <div class="qty-box">
+                        <span style="color:#888; font-size:12px; margin-right:5px;">Qty</span>
                         <input type="number" id="qty3" value="1" min="1">
                     </div>
                     <button class="add-btn" id="btn-chocolate" onclick="addToCart('Chocolate', 1.50, 'qty3', 'chocolate')">ADD +</button>
@@ -70,16 +129,16 @@
 
     </div>
 
-    <div id="checkout-section" class="cart-section" style="display:none; border: 2px solid #007bff;">
+    <div id="checkout-section" class="cart-section" style="display:none;">
         <h3 style="margin-top:0;">🛒 Your Basket</h3>
         <div id="cart-items"></div>
-        <hr>
+        <hr style="border: 0; border-top: 1px solid #eee; margin: 15px 0;">
 
         <label style="font-weight:bold; color:#333;">👤 Your Name:</label>
-        <input type="text" id="cx-name" placeholder="Enter your name..." style="width:100%; padding:10px; margin-top:5px; margin-bottom:15px; border:1px solid #ccc; border-radius:8px;">
+        <input type="text" id="cx-name" placeholder="Enter your name..." style="width:100%; padding:12px; margin-top:5px; margin-bottom:15px; border:1px solid #ccc; border-radius:8px; box-sizing: border-box;">
         
         <label style="font-weight:bold; color:#333;">⏰ Select Pickup Time:</label>
-        <select id="pickup-time" style="width:100%; padding:12px; border:1px solid #ccc; border-radius:8px; font-size:16px; background-color:white;">
+        <select id="pickup-time" style="width:100%; padding:12px; border:1px solid #ccc; border-radius:8px; font-size:16px; background-color:white; box-sizing: border-box;">
             <option value="" disabled selected>Select a Pickup Time ▼</option>
             <option value="Wait 20 mins">ASAP (Approx 20 mins)</option>
             <option value="9:00 AM">9:00 AM</option>
@@ -112,7 +171,7 @@
         <br><br>
         
         <h3>Total: $<span id="cart-total">0.00</span></h3>
-        <button onclick="checkout()" style="background:#28a745; color:white; width:100%; padding:15px; border:none; border-radius:10px; font-size:18px; font-weight:bold;">
+        <button onclick="checkout()" style="background:#28a745; color:white; width:100%; padding:15px; border:none; border-radius:10px; font-size:18px; font-weight:bold; cursor: pointer; box-shadow: 0 4px 10px rgba(40, 167, 69, 0.3);">
             🚀 Send to Kitchen
         </button>
     </div>
