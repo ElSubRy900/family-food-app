@@ -87,20 +87,14 @@ function renderCart() {
 window.checkout = function() {
     if (cart.length === 0) return;
 
-    // 1. GET DATA (New: Name & Unit)
+    // 1. GET DATA (Name & Time only)
     let time = document.getElementById("pickup-time").value;
     let name = document.getElementById("cx-name").value.trim();
-    let unit = document.getElementById("cx-unit").value.trim();
 
-    // 2. VALIDATION (Make sure they typed it!)
+    // 2. VALIDATION
     if (name === "") {
         document.getElementById("cx-name").style.border = "2px solid red";
         showToast("⚠️ Please enter your Name!");
-        return;
-    }
-    if (unit === "") {
-        document.getElementById("cx-unit").style.border = "2px solid red";
-        showToast("⚠️ Please enter Unit Number!");
         return;
     }
     if (time === "") { 
@@ -111,10 +105,9 @@ window.checkout = function() {
 
     let total = document.getElementById("cart-total").innerText;
     
-    // 3. CREATE ORDER OBJECT
+    // 3. CREATE ORDER OBJECT (No Unit)
     const newOrder = {
         customerName: name,  
-        customerUnit: unit, 
         items: cart,
         totalPrice: total,
         pickupTime: time,
@@ -131,9 +124,8 @@ window.checkout = function() {
             renderCart();
             document.getElementById("checkout-section").style.display = "none";
             
-            // Clear inputs for next time
+            // Clear inputs
             document.getElementById("cx-name").value = "";
-            document.getElementById("cx-unit").value = "";
             document.getElementById("pickup-time").value = ""; 
             
             showToast("Order Sent to Kitchen! 🚀");
