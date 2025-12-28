@@ -1,57 +1,76 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Air Batu Malaysia @ Tengah</title>
     <link rel="stylesheet" href="style.css">
+    <link rel="icon" type="image/jpg" href="blue.jpg">
 </head>
 <body>
 
-<div id="closed-banner" style="display:none; background: #dc3545; color: white; text-align: center; padding: 15px; font-weight: bold; position: sticky; top: 0; z-index: 999;">
-    ⛔ SORRY, WE ARE CLOSED!
-</div>
-
-
-    <h1>Air Batu Malaysia @ Tengah 🍧</h1>
-    <p>Pickup Only • Cash on Pickup</p>
-
-    <div class="item">
-        <img src="blue.jpg">
-        <div class="item-details">
-            <h3>Vanilla Blue</h3>
-            <div class="price">$1.50</div>
-            <div class="controls">
-                <span>Qty: <input type="number" id="qty-blue" value="1" min="1"></span>
-                <button class="add-btn" onclick="addToCart('Vanilla Blue', 1.50, 'qty-blue')">ADD +</button>
-            </div>
-        </div>
+    <div class="header">
+        <h1>Air Batu Malaysia @ Tengah 🍧</h1>
+        <p>Pickup Only • Cash on Pickup</p>
+    </div>
+    
+    <div id="closed-banner" style="display:none; background: #dc3545; color: white; text-align: center; padding: 15px; font-weight: bold; position: sticky; top: 0; z-index: 999;">
+        ⛔ SORRY, WE ARE CLOSED!
     </div>
 
-    <div class="item">
-        <img src="gum.jpg">
-        <div class="item-details">
-            <h3>Bubblegum</h3>
-            <div class="price">$1.50</div>
-            <div class="controls">
-                <span>Qty: <input type="number" id="qty-gum" value="1" min="1"></span>
-                <button class="add-btn" onclick="addToCart('Bubblegum', 1.50, 'qty-gum')">ADD +</button>
+    <div class="container">
+        
+        <div class="card">
+            <img src="blue.jpg" alt="Blue Ice Cream">
+            <div class="card-info">
+                <h2>Vanilla Blue</h2>
+                <p class="price">$1.50</p>
+                <p id="stock-vanilla" style="color:red; font-size:12px; font-weight:bold;"></p>
+                <div class="actions">
+                    <div class="qty-selector">
+                        <span>Qty:</span>
+                        <input type="number" id="qty1" value="1" min="1">
+                    </div>
+                    <button class="add-btn" id="btn-vanilla" onclick="addToCart('Vanilla Blue', 1.50, 'qty1', 'vanilla')">ADD +</button>
+                </div>
             </div>
         </div>
-    </div>
 
-    <div class="item">
-        <img src="choc.jpg">
-        <div class="item-details">
-            <h3>Chocolate</h3>
-            <div class="price">$1.50</div>
-            <div class="controls">
-                <span>Qty: <input type="number" id="qty-choc" value="1" min="1"></span>
-                <button class="add-btn" onclick="addToCart('Chocolate', 1.50, 'qty-choc')">ADD +</button>
+        <div class="card">
+            <img src="gum.jpg" alt="Bubblegum">
+            <div class="card-info">
+                <h2>Bubblegum</h2>
+                <p class="price">$1.50</p>
+                <p id="stock-bubblegum" style="color:red; font-size:12px; font-weight:bold;"></p>
+                <div class="actions">
+                    <div class="qty-selector">
+                        <span>Qty:</span>
+                        <input type="number" id="qty2" value="1" min="1">
+                    </div>
+                    <button class="add-btn" id="btn-bubblegum" onclick="addToCart('Bubblegum', 1.50, 'qty2', 'bubblegum')">ADD +</button>
+                </div>
             </div>
         </div>
+
+        <div class="card">
+            <img src="choc.jpg" alt="Chocolate">
+            <div class="card-info">
+                <h2>Chocolate</h2>
+                <p class="price">$1.50</p>
+                <p id="stock-chocolate" style="color:red; font-size:12px; font-weight:bold;"></p>
+                <div class="actions">
+                    <div class="qty-selector">
+                        <span>Qty:</span>
+                        <input type="number" id="qty3" value="1" min="1">
+                    </div>
+                    <button class="add-btn" id="btn-chocolate" onclick="addToCart('Chocolate', 1.50, 'qty3', 'chocolate')">ADD +</button>
+                </div>
+            </div>
+        </div>
+
     </div>
 
-     <div id="checkout-section" class="cart-section" style="display:none; border: 2px solid #007bff;">
+    <div id="checkout-section" class="cart-section" style="display:none; border: 2px solid #007bff;">
         <h3 style="margin-top:0;">🛒 Your Basket</h3>
         <div id="cart-items"></div>
         <hr>
@@ -98,22 +117,6 @@
         </button>
     </div>
 
-
-    <div class="location-card" style="border-left: 5px solid #28a745;">
-        <h3>📍 Location & Hours</h3>
-        <p><strong>Address:</strong><br>131B, Tengah Garden Avenue</p>
-        <hr style="border: 0; border-top: 1px solid #eee; margin: 10px 0;">
-        <p><strong>Mon - Fri:</strong> 9am - 9pm</p>
-        <p><strong>Sunday:</strong> 8am - 5pm</p>
-        <p style="color: #dc3545;"><strong>Saturday:</strong> CLOSED ❌</p>
-        <hr style="border: 0; border-top: 1px solid #eee; margin: 10px 0;">
-        <p><strong>Payment:</strong> Cash on Pickup Only 💵</p>
-    </div>
-
     <script type="module" src="main.js"></script>
-    
-<div id="toast" style="visibility:hidden; min-width: 250px; background-color: #333; color: #fff; text-align: center; border-radius: 2px; padding: 16px; position: fixed; z-index: 1; left: 50%; bottom: 30px; transform: translateX(-50%); font-size: 17px;">Order Sent! 🚀</div>
-
-
 </body>
 </html>
