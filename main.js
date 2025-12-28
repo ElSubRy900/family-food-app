@@ -87,7 +87,22 @@ function renderCart() {
 window.checkout = function() {
     if (cart.length === 0) return;
 
+    // 1. GET DATA (New: Name & Unit)
     let time = document.getElementById("pickup-time").value;
+    let name = document.getElementById("cx-name").value.trim();
+    let unit = document.getElementById("cx-unit").value.trim();
+
+    // 2. VALIDATION (Make sure they typed it!)
+    if (name === "") {
+        document.getElementById("cx-name").style.border = "2px solid red";
+        showToast("⚠️ Please enter your Name!");
+        return;
+    }
+    if (unit === "") {
+        document.getElementById("cx-unit").style.border = "2px solid red";
+        showToast("⚠️ Please enter Unit Number!");
+        return;
+    }
     if (time === "") { 
         document.getElementById("pickup-time").style.border = "2px solid red";
         showToast("⚠️ Please pick a time!");
@@ -96,7 +111,10 @@ window.checkout = function() {
 
     let total = document.getElementById("cart-total").innerText;
     
+    // 3. CREATE ORDER OBJECT
     const newOrder = {
+        customerName: name,  
+        customerUnit: unit, 
         items: cart,
         totalPrice: total,
         pickupTime: time,
@@ -104,12 +122,7 @@ window.checkout = function() {
         createdAt: new Date().toString()
     };
 
-    // --- WHATSAPP OPTION (Optional) ---
-    // let myPhoneNumber = "60123456789"; 
-    // let waMessage = `*New Order!* 🍧%0APickup: ${time}%0ATotal: $${total}`;
-    // window.open(`https://wa.me/${myPhoneNumber}?text=${waMessage}`, '_blank');
-    // ----------------------------------
-
+    // 4. SEND TO FIREBASE
     const ordersRef = ref(db, 'orders');
     const newOrderRef = push(ordersRef);
     set(newOrderRef, newOrder)
@@ -117,6 +130,12 @@ window.checkout = function() {
             cart = [];
             renderCart();
             document.getElementById("checkout-section").style.display = "none";
+            
+            // Clear inputs for next time
+            document.getElementById("cx-name").value = "";
+            document.getElementById("cx-unit").value = "";
+            document.getElementById("pickup-time").value = ""; 
+            
             showToast("Order Sent to Kitchen! 🚀");
         })
         .catch((error) => {
@@ -124,6 +143,7 @@ window.checkout = function() {
             showToast("Error: " + error.message);
         });
 }
+
 
 function showToast(message) {
     let toast = document.getElementById("toast");
